@@ -16,6 +16,8 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+    word-wrap: break-word;
+    overflow: scroll;
 }
 
 #buttons {

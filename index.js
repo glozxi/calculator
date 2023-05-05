@@ -11,7 +11,14 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b === 0) {
+        throw "error";
+    }
+    return roundNumber(a / b, 5);
+}
+
+function roundNumber(number, dp) {
+    return Math.round(number * 10 ** dp) / 10 ** dp
 }
 
 function operate(a, op, b) {
@@ -24,6 +31,8 @@ function operate(a, op, b) {
             return multiply(a, b);
         case "/":
             return divide(a, b);
+        default:
+            throw "error";
     }
 }
 
@@ -40,7 +49,14 @@ function getResult() {
         return;
     }
 
-    const res = operate(Number(numberA), operator, Number(numberB));
+    let res;
+    try {
+        res = operate(Number(numberA), operator, Number(numberB));
+    }
+    catch (err) {
+        resultDisplay.textContent = err;
+    }
+    
     resultDisplay.textContent = res;
     numberA = res.toString();
     operator = "";
@@ -58,6 +74,13 @@ function keyInNumber(num) {
     }
 }
 
+function keyInOperator(op) {
+    if (numberA !== "" && operator === "") {
+        operator = op;
+        operationDisplay.textContent += op;
+    }
+}
+
 let numberA = "";
 let operator = "";
 let numberB = "";
@@ -72,4 +95,10 @@ const numberButtons = document.querySelectorAll("#number-buttons > button");
 for (let button of numberButtons) {
     let numInButton = button.textContent;
     button.addEventListener('click', () => keyInNumber(numInButton));
+}
+
+const operatorButtons = document.querySelectorAll(".operator");
+for (let button of operatorButtons) {
+    let operatorInButton = button.textContent;
+    button.addEventListener('click', () => keyInOperator(operatorInButton));
 }
