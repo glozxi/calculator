@@ -12,6 +12,10 @@
 #display {
     background-color: beige;
     height: 150px;
+    font-size: 50px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
 }
 
 #buttons {
@@ -23,4 +27,9 @@
 button {
     height: 50px;
     width: 50px;
+    margin: 2px;
+}
+
+#result {
+    text-align: right;
 }
